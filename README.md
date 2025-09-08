@@ -1,69 +1,41 @@
-# React + TypeScript + Vite
+Projeto de ToDo List com React e TypeScript
+Sobre o Projeto
+Este projeto é a execução de uma atividade avaliativa da disciplina de Desenvolvimento Web. O objetivo dele é criar uma ToDo List com funcionalidades específicas: Adicionar tarefa, listar tarefas e concluir tarefa. O projeto também foi estilizado usando a biblioteca Tailwind, para garantir mais praticidade.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tecnologias Utilizadas
+Para elaborar isso, usei:
 
-Currently, two official plugins are available:
+React: É a base para criar a tela.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+TypeScript: Para me dar mais segurança no código.
 
-## Expanding the ESLint configuration
+Vite: Ferramenta que ajuda o projeto a carregar mais rápido.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Tailwind CSS: Para ajeitar o visual e deixar o design responsivo.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Estrutura de Componentes
+O aplicativo é dividido em duas partes:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+App.tsx: Este é o componente "principal" da aplicação. Ele controla a lista inteira, a caixinha de texto e os botões.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+ItemTarefa.tsx: Este é um código que faz só uma coisa: mostrar uma tarefa. Ele recebe as informações da tarefa do App.tsx (via props) e já sabe o que fazer.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Gerenciamento de Estado (useState)
+Para a página atualizar, mais especificamente a lista de tarefas, usei o useState do React. Ele é o que permite:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Salvar o que a pessoa digita na caixinha de texto, usando o estado inputNomeTarefa:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+const [inputNomeTarefa, setValorNomeTarefa] = useState("");
+
+Guardar a lista de tarefas, usando o estado tarefas, para que a tela mude sozinha quando você adiciona uma tarefa nova ou clica para concluir uma:
+
+const [tarefas, setTarefas] = useState<Tarefa[]>([]);
+
+Tipagem com TypeScript
+O TypeScript me ajudou a criar a interface Tarefa, que é basicamente o contrato para cada tarefa. Nela, eu defini que a tarefa tem um ID (string), um nome (string) e um status de "concluída" (booleano). Isso evita alguns erros e faz o projeto seguir um padrão desde o início.
+
+interface Tarefa {
+  id: string,
+  nome: string,
+  concluida: boolean
+}
